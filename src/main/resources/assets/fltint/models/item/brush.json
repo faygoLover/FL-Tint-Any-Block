@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "fltint:item/brush",
+    "layer1": "fltint:item/brush_paint"
+  }
+}

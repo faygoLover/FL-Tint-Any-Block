@@ -51,8 +51,17 @@ public final class FlTint {
         if (ModList.get().isLoaded("worldedit")) faygolover.fltint.compat.WorldEditHook.register();
     }
 
-    /** Валик — только во вкладке «Операторские утилиты» (видна операторам с включённой настройкой). */
+    /** Вкладка «RP: разное» RP Core — от Core не зависим, ключ по имени. */
+    private static final net.minecraft.resources.ResourceKey<net.minecraft.world.item.CreativeModeTab> RP_MISC =
+            net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.CREATIVE_MODE_TAB,
+                    new net.minecraft.resources.ResourceLocation("rpcore", "misc"));
+
+    /** Валик — во вкладке «RP: разное» RP Core; без Core — в «Операторских утилитах» (видна операторам с включённой настройкой). */
     private static void creativeTab(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == CreativeModeTabs.OP_BLOCKS && event.hasPermissions()) event.accept(BRUSH);
+        if (ModList.get().isLoaded("rpcore")) {
+            if (event.getTabKey() == RP_MISC) event.accept(BRUSH);
+        } else if (event.getTabKey() == CreativeModeTabs.OP_BLOCKS && event.hasPermissions()) {
+            event.accept(BRUSH);
+        }
     }
 }
